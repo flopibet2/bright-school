@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GGHS CHAK NO 493 JB - School Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f0fdf4; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        /* Iframe styling */
+        #resultFrame { display: none; width: 100%; height: 500px; border-radius: 12px; border: 2px solid #16a34a; margin-top: 20px; }
+        
+        /* Slider Styling */
+        .slider-wrapper { overflow: hidden; position: relative; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .slides-container { display: flex; transition: transform 0.8s ease-in-out; width: 100%; height: 100%; }
+        .slide { min-width: 100%; height: 280px; object-fit: cover; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-green-700 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-white p-3 rounded-full mr-4 shadow-md">
+                        <i class="fas fa-graduation-cap text-3xl text-green-700"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold tracking-wide">GGHS CHAK NO 493 JB</h1>
+                        <p class="text-green-100 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> Tehsil Shorkot, District Jhang | EMIS: 33230099</p>
+                    </div>
+                </div>
+                <div class="bg-green-800 px-6 py-3 rounded-lg border border-green-600 text-center shadow-inner">
+                    <p class="text-xs text-green-200 uppercase font-semibold mb-1">Principal</p>
+                    <p class="font-bold text-lg" id="dispPrincipalName">Dr. Noor</p>
+                    <p class="text-sm font-medium mt-1"><i class="fas fa-phone-alt mr-2 text-green-300"></i><span id="dispPrincipalPhone">0301 7697996</span></p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- School Profile & Monitoring Card -->
+            <div class="glass-card rounded-2xl shadow-xl border border-gray-100 overflow-hidden col-span-1 lg:col-span-2">
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-gray-800"><i class="fas fa-info-circle text-green-600 mr-2"></i> Profile & Monitoring Details</h2>
+                    <span id="dispSchoolStatus" class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase"><i class="fas fa-door-open mr-1"></i> School Open</span>
+                </div>
+                <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Level:</span> <span class="font-semibold" id="dispLevel">High</span></li>
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Markaz:</span> <span class="font-semibold" id="dispMarkaz">SECONDARY-WING</span></li>
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Mauza:</span> <span class="font-semibold" id="dispMauza">BATIAN WALA</span></li>
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">UC Name:</span> <span class="font-semibold" id="dispUC">CHAK 493/JB (No. 51)</span></li>
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Constituency:</span> <span class="font-semibold" id="dispConstituency">PP: 128 | NA: 116</span></li>
+                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Illegal Occupation:</span> <span class="font-semibold text-green-600" id="dispIllegal">No</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        <h3 class="text-sm font-bold text-blue-800 uppercase mb-3 border-b border-blue-200 pb-2">Latest Monitoring Record</h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><strong>Date:</strong> <span id="dispMonDate">26-01-2026</span></li>
+                            <li><strong>Time:</strong> <span id="dispMonTime">10:25 AM - 11:34 AM</span></li>
+                            <li><strong>Form No:</strong> <span id="dispMonFormNo">26012610331577</span></li>
+                            <li><strong>MEA Name:</strong> <span id="dispMonMeaName">S-**** MU**** RA****</span></li>
+                            <li><strong>MEA Phone:</strong> <span id="dispMonMeaPhone">03****</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teaching Staff Attendance Card -->
+            <div class="glass-card rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="bg-blue-600 px-6 py-4 border-b border-blue-700 text-white">
+                    <h2 class="text-lg font-bold"><i class="fas fa-users mr-2"></i> Teaching Staff Attendance</h2>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="inline-block relative">
+                        <svg class="w-32 h-32 transform -rotate-90">
+                            <circle cx="64" cy="64" r="50" stroke="#e5e7eb" stroke-width="12" fill="none"></circle>
+                            <circle cx="64" cy="64" r="50" stroke="#16a34a" stroke-width="12" fill="none" stroke-dasharray="314" stroke-dashoffset="0"></circle>
+                        </svg>
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-green-600">
+                            100%
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-6">
+                        <div class="bg-gray-100 p-2 rounded-lg">
+                            <p class="text-xs text-gray-500 uppercase font-semibold">Total</p>
+                            <p class="text-xl font-bold text-gray-800" id="dispTotalStaff">13</p>
+                        </div>
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <p class="text-xs text-green-600 uppercase font-semibold">Present</p>
+                            <p class="text-xl font-bold text-green-700" id="dispPresentStaff">13</p>
+                        </div>
+                        <div class="bg-red-100 p-2 rounded-lg">
+                            <p class="text-xs text-red-600 uppercase font-semibold">Absent</p>
+                            <p class="text-xl font-bold text-red-700" id="dispAbsentStaff">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Functioning of School Facilities & Slider -->
+            <div class="glass-card rounded-2xl shadow-xl border border-gray-100 overflow-hidden col-span-1 md:col-span-2">
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800"><i class="fas fa-building text-green-600 mr-2"></i> Functioning of School Facilities</h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="flex items-center">
+                                <div class="bg-yellow-100 p-3 rounded-lg text-yellow-600 mr-4"><i class="fas fa-bolt text-xl"></i></div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Electricity</p>
+                                    <p class="text-xs text-gray-500">Available: Yes</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" id="dispElectricity">Wholly Functional</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="flex items-center">
+                                <div class="bg-blue-100 p-3 rounded-lg text-blue-600 mr-4"><i class="fas fa-tint text-xl"></i></div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Drinking Water</p>
+                                    <p class="text-xs text-gray-500">Clean & Free of Smell</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" id="dispWater">Wholly Functional</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="flex items-center">
+                                <div class="bg-purple-100 p-3 rounded-lg text-purple-600 mr-4"><i class="fas fa-restroom text-xl"></i></div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Toilet Facility</p>
+                                    <p class="text-xs text-gray-500">Available: Yes</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" id="dispToilet">Wholly Functional</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="flex items-center">
+                                <div class="bg-orange-100 p-3 rounded-lg text-orange-600 mr-4"><i class="fas fa-border-all text-xl"></i></div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Boundary Wall</p>
+                                    <p class="text-xs text-gray-500">Available: Yes</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" id="dispWall">Wholly Functional</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Add School Images Auto-Slider Here -->
+                    <div class="mt-8 slider-wrapper border-2 border-green-100">
+                        <div class="slides-container" id="schoolSlider">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="School Classroom">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Students in School">
+                            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="School Building">
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white text-center">
+                            <p class="font-semibold text-sm tracking-widest uppercase">GGHS CHAK NO 493 JB Campus View</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Real Result Checker Section -->
+            <div class="glass-card rounded-2xl shadow-xl border border-green-200 overflow-hidden bg-gradient-to-br from-green-50 to-white">
+                <div class="bg-green-600 px-6 py-4 border-b border-green-700 text-white">
+                    <h2 class="text-lg font-bold"><i class="fas fa-search-plus mr-2"></i> Live Result Portal</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-600 mb-4">Official BISE Faisalabad portal will open below to check results[cite: 1].</p>
+                    
+                    <button onclick="openResultPortal()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition duration-300 shadow-md">
+                        <i class="fas fa-globe mr-2"></i> Open Result Portal Here
+                    </button>
+
+                    <iframe id="resultFrame" src=""></iframe>
+                </div>
+            </div>
+
+            <!-- TOP POSITION HOLDERS SECTION -->
+            <div class="glass-card rounded-2xl shadow-xl border border-yellow-200 overflow-hidden col-span-1 md:col-span-2 lg:col-span-3">
+                <div class="bg-yellow-500 px-6 py-4 border-b border-yellow-600 text-white flex items-center justify-between">
+                    <h2 class="text-lg font-bold"><i class="fas fa-award mr-2"></i> School Top Position Holders</h2>
+                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-sm">Proud Moments</span>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        
+                        <!-- 1st Position -->
+                        <div class="bg-gradient-to-b from-yellow-50 to-white border-2 border-yellow-400 p-5 rounded-2xl text-center shadow-md relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-yellow-400 text-white px-3 py-1 rounded-bl-xl font-bold text-xs"><i class="fas fa-crown"></i> 1st Position</div>
+                            <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg" id="dispTop1Name">Ayesha Bibi</h3>
+                            <p class="text-xs text-gray-500 mt-1">Roll No: <span class="font-semibold text-gray-700" id="dispTop1Roll">801</span></p>
+                            <p class="text-sm font-bold text-yellow-600 mt-2">Marks: <span id="dispTop1Marks">1050 / 1100</span></p>
+                        </div>
+
+                        <!-- 2nd Position -->
+                        <div class="bg-gradient-to-b from-gray-50 to-white border-2 border-gray-300 p-5 rounded-2xl text-center shadow-md relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-gray-400 text-white px-3 py-1 rounded-bl-xl font-bold text-xs"><i class="fas fa-medal"></i> 2nd Position</div>
+                            <div class="w-16 h-16 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg" id="dispTop2Name">Fatima Noor</h3>
+                            <p class="text-xs text-gray-500 mt-1">Roll No: <span class="font-semibold text-gray-700" id="dispTop2Roll">802</span></p>
+                            <p class="text-sm font-bold text-gray-600 mt-2">Marks: <span id="dispTop2Marks">1025 / 1100</span></p>
+                        </div>
+
+                        <!-- 3rd Position -->
+                        <div class="bg-gradient-to-b from-amber-50 to-white border-2 border-amber-600 p-5 rounded-2xl text-center shadow-md relative overflow-hidden sm:col-span-2 md:col-span-1">
+                            <div class="absolute top-0 right-0 bg-amber-600 text-white px-3 py-1 rounded-bl-xl font-bold text-xs"><i class="fas fa-award"></i> 3rd Position</div>
+                            <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg" id="dispTop3Name">Zainab Ali</h3>
+                            <p class="text-xs text-gray-500 mt-1">Roll No: <span class="font-semibold text-gray-700" id="dispTop3Roll">901</span></p>
+                            <p class="text-sm font-bold text-amber-700 mt-2">Marks: <span id="dispTop3Marks">1000 / 1100</span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- DYNAMIC ADMIN ADDED SECTION CONTAINER -->
+            <div id="dynamicContainer" class="glass-card rounded-2xl shadow-xl border border-blue-200 overflow-hidden col-span-1 md:col-span-2 lg:col-span-3" style="display:none;">
+                <div class="bg-blue-600 px-6 py-4 border-b border-blue-700 text-white">
+                    <h2 class="text-lg font-bold" id="dynDispTitle"><i id="dynDispIcon" class="fas fa-star mr-2"></i> Section</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-700 whitespace-pre-line" id="dynDispContent"></p>
+                </div>
+            </div>
+
+            <!-- Google Map Location Section -->
+            <div class="glass-card rounded-2xl shadow-xl border border-gray-100 overflow-hidden col-span-1 md:col-span-2 lg:col-span-3">
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800"><i class="fas fa-map-marked-alt text-green-600 mr-2"></i> School Location Map</h2>
+                </div>
+                <div class="p-0">
+                    <iframe src="https://maps.google.com/maps?q=Chak%20493%20JB%20Shorkot%20Jhang&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 text-center py-6 mt-8">
+        <p class="text-sm">&copy; 2026 GGHS CHAK NO 493 JB. All Rights Reserved[cite: 1].</p>
+    </footer>
+
+    <!-- Python FastAPI Server Sync Script (Sirf aik dafa load hone par data aayega) -->
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+
+        // Fetch Data from Python FastAPI Server (Only on Page Load)
+        async function fetchSchoolData() {
+            try {
+                const response = await fetch(`${API_URL}/api/data`);
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    document.getElementById('dispPrincipalName').innerText = data.principalName || "Dr. Noor";
+                    document.getElementById('dispPrincipalPhone').innerText = data.principalPhone || "0301 7697996";
+                    document.getElementById('dispSchoolStatus').innerHTML = `<i class="fas fa-door-open mr-1"></i> School ${data.status || 'Open'}`;
+                    document.getElementById('dispLevel').innerText = data.level || "High";
+                    document.getElementById('dispMarkaz').innerText = data.markaz || "SECONDARY-WING";
+                    document.getElementById('dispMauza').innerText = data.mauza || "BATIAN WALA";
+                    document.getElementById('dispUC').innerText = data.uc || "CHAK 493/JB (No. 51)";
+                    document.getElementById('dispConstituency').innerText = data.constituency || "PP: 128 | NA: 116";
+                    document.getElementById('dispIllegal').innerText = data.illegalOccupation || "No";
+                    document.getElementById('dispMonDate').innerText = data.monDate || "26-01-2026";
+                    document.getElementById('dispMonTime').innerText = data.monTime || "10:25 AM - 11:34 AM";
+                    document.getElementById('dispMonFormNo').innerText = data.monFormNo || "26012610331577";
+                    document.getElementById('dispMonMeaName').innerText = data.monMeaName || "S-**** MU**** RA****";
+                    document.getElementById('dispMonMeaPhone').innerText = data.monMeaPhone || "03****";
+                    document.getElementById('dispTotalStaff').innerText = data.totalStaff || "13";
+                    document.getElementById('dispPresentStaff').innerText = data.presentStaff || "13";
+                    document.getElementById('dispAbsentStaff').innerText = data.absentStaff || "0";
+                    document.getElementById('dispElectricity').innerText = (data.electricity || 'Wholly') + " Functional";
+                    document.getElementById('dispWater').innerText = (data.water || 'Wholly') + " Functional";
+                    document.getElementById('dispToilet').innerText = (data.toilet || 'Wholly') + " Functional";
+                    document.getElementById('dispWall').innerText = (data.wall || 'Wholly') + " Functional";
+
+                    // Update Toppers Live Data
+                    if(data.top1Name) document.getElementById('dispTop1Name').innerText = data.top1Name;
+                    if(data.top1Roll) document.getElementById('dispTop1Roll').innerText = data.top1Roll;
+                    if(data.top1Marks) document.getElementById('dispTop1Marks').innerText = data.top1Marks;
+
+                    if(data.top2Name) document.getElementById('dispTop2Name').innerText = data.top2Name;
+                    if(data.top2Roll) document.getElementById('dispTop2Roll').innerText = data.top2Roll;
+                    if(data.top2Marks) document.getElementById('dispTop2Marks').innerText = data.top2Marks;
+
+                    if(data.top3Name) document.getElementById('dispTop3Name').innerText = data.top3Name;
+                    if(data.top3Roll) document.getElementById('dispTop3Roll').innerText = data.top3Roll;
+                    if(data.top3Marks) document.getElementById('dispTop3Marks').innerText = data.top3Marks;
+
+                    // Handle Dynamic Admin Section
+                    if(data.newSectionTitle && data.newSectionContent) {
+                        document.getElementById('dynDispTitle').innerHTML = `<i class="${data.newSectionIcon || 'fas fa-star'} mr-2"></i> ${data.newSectionTitle}`;
+                        document.getElementById('dynDispContent').innerText = data.newSectionContent;
+                        document.getElementById('dynamicContainer').style.display = 'block';
+                    }
+                }
+            } catch (error) {
+                console.error("Python server se data laane mein masla hai:", error);
+            }
+        }
+
+        // Page load hone par sirf aik dafa data fetch hoga
+        window.onload = function() {
+            fetchSchoolData();
+        };
+
+        // Result Portal Frame Script
+        function openResultPortal() {
+            var frame = document.getElementById('resultFrame');
+            frame.src = "https://result.bisefsd.edu.pk/Default.aspx";
+            frame.style.display = "block";
+            frame.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Auto Slider Script
+        let currentSlide = 0;
+        const slider = document.getElementById('schoolSlider');
+        const totalSlides = 3;
+        
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`; 
+        }, 3000); 
+    </script>
+</body>
+</html>
