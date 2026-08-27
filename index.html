@@ -172,7 +172,7 @@
                 class="glass-card rounded-2xl shadow-xl border border-gray-100 overflow-hidden col-span-1 lg:col-span-2">
                 <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
                     <h2 class="text-lg font-bold text-gray-800"><i class="fas fa-info-circle text-green-600 mr-2"></i>
-                        Profile Details</h2>
+                        School Profile</h2>
                     <span id="dispSchoolStatus"
                         class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase"><i
                             class="fas fa-circle-notch fa-spin mr-1"></i> Loading...</span>
@@ -195,9 +195,6 @@
                             <li class="flex justify-between border-b pb-1"><span
                                     class="text-gray-500">Constituency:</span> <span class="font-semibold text-gray-700"
                                     id="dispConstituency"><i
-                                        class="fas fa-circle-notch fa-spin text-xs text-gray-400"></i></span></li>
-                            <li class="flex justify-between border-b pb-1"><span class="text-gray-500">Illegal
-                                    Occupation:</span> <span class="font-semibold text-green-600" id="dispIllegal"><i
                                         class="fas fa-circle-notch fa-spin text-xs text-gray-400"></i></span></li>
                         </ul>
                     </div>
@@ -432,17 +429,8 @@
                 </div>
             </div>
 
-            <!-- DYNAMIC ADMIN ADDED SECTION CONTAINER (2 Fields: Title & Detail) -->
-            <div id="dynamicContainer"
-                class="glass-card rounded-2xl shadow-xl border border-blue-200 overflow-hidden col-span-1 md:col-span-2 lg:col-span-3"
-                style="display:none;">
-                <div class="bg-blue-600 px-6 py-4 border-b border-blue-700 text-white">
-                    <h2 class="text-lg font-bold" id="dynDispTitle"><i class="fas fa-bullhorn mr-2"></i> Notice</h2>
-                </div>
-                <div class="p-6">
-                    <p class="text-sm text-gray-700 whitespace-pre-line" id="dynDispContent"></p>
-                </div>
-            </div>
+            <!-- DYNAMIC ADMIN ADDED NOTICE SECTIONS -->
+            <div id="dynamicContainer" class="col-span-1 md:col-span-2 lg:col-span-3 space-y-6" style="display:none;"></div>
 
             <!-- Google Map Location Section -->
             <div
@@ -562,7 +550,6 @@
                     document.getElementById('dispMauza').innerText = data.mauza || "BATIAN WALA";
                     document.getElementById('dispUC').innerText = data.uc || "CHAK 493/JB (No. 51)";
                     document.getElementById('dispConstituency').innerText = data.constituency || "PP: 128 | NA: 116";
-                    document.getElementById('dispIllegal').innerText = data.illegalOccupation || "No";
                     const total = parseInt(data.totalStaff) || 0;
                     const present = parseInt(data.presentStaff) || 0;
                     const absent = parseInt(data.absentStaff) || 0;
@@ -608,12 +595,31 @@
                         holidaysContainer.style.display = 'none';
                     }
 
-                    // Handle Dynamic Admin Section (Title and Detail)
-                    if (data.newSectionTitle && data.newSectionContent) {
-                        document.getElementById('dynDispTitle').innerHTML = `<i class="fas fa-bullhorn mr-2"></i> ${data.newSectionTitle}`;
-                        document.getElementById('dynDispContent').innerText = data.newSectionContent;
-                        document.getElementById('dynamicContainer').style.display = 'block';
-                    }
+                    // Handle multiple dynamic admin notices, with legacy fallback.
+                    const dynamicContainer = document.getElementById('dynamicContainer');
+                    const customNotices = Array.isArray(data.customNotices)
+                        ? data.customNotices
+                        : (data.newSectionTitle || data.newSectionContent
+                            ? [{ title: data.newSectionTitle, content: data.newSectionContent }]
+                            : []);
+                    dynamicContainer.innerHTML = '';
+                    customNotices
+                        .filter(notice => notice.title && notice.content)
+                        .forEach(notice => {
+                            const noticeCard = document.createElement('div');
+                            noticeCard.className = 'glass-card rounded-2xl shadow-xl border border-blue-200 overflow-hidden';
+                            noticeCard.innerHTML = `
+                                <div class="bg-blue-600 px-6 py-4 border-b border-blue-700 text-white">
+                                    <h2 class="text-lg font-bold"><i class="fas fa-bullhorn mr-2"></i></h2>
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-sm text-gray-700 whitespace-pre-line"></p>
+                                </div>`;
+                            noticeCard.querySelector('h2').append(document.createTextNode(notice.title));
+                            noticeCard.querySelector('p').innerText = notice.content;
+                            dynamicContainer.appendChild(noticeCard);
+                        });
+                    dynamicContainer.style.display = customNotices.some(notice => notice.title && notice.content) ? 'block' : 'none';
                 }
             } catch (error) {
                 console.error("Backend server se data laane mein masla hai:", error);
