@@ -61,7 +61,7 @@
       "telephone": "+92-302-4763490",
       "employee": {
         "@type": "Person",
-        "name": "Ayesha Noor",
+        "name": "Bright Stars School System",
         "jobTitle": "Principal",
         "telephone": "+92-302-4763490"
       }
@@ -138,7 +138,7 @@
                 </div>
                 <div class="bg-green-800 px-6 py-3 rounded-lg border border-green-600 text-center shadow-inner">
                     <p class="text-xs text-green-200 uppercase font-semibold mb-1">Principal</p>
-                        <p class="font-bold text-lg" id="dispPrincipalName">AYESHA NOOR</p>
+                        <p class="font-bold text-lg" id="dispPrincipalName">Ayesha Noor</p>
                 </div>
             </div>
         </div>
@@ -459,7 +459,7 @@
                 with knowledge, moral values, and essential academic skills to help them excel in their futures.
             </p>
             <p class="text-gray-700 leading-relaxed mb-4">
-                Under the visionary leadership of Principal <strong>Ayesha Noor</strong>, our school maintains a
+                Under the visionary leadership of Principal <strong id="aboutPrincipalName">Ayesha Noor</strong>, our school maintains a
                 disciplined, safe, and progressive environment. We focus on academic excellence, curricular activities,
                 character building, and modern digital transparency through our official school web portal.
             </p>
@@ -497,7 +497,7 @@
                 </p>
                 <p class="text-sm text-gray-700 mb-2"><strong>Location:</strong> Mauza Batian Wala, UC Chak 493/JB (No.
                     51), Tehsil Shorkot, District Jhang</p>
-                <p class="text-sm text-gray-700"><strong>Principal:</strong> Ayesha Noor (Phone: 0302 4763490)</p>
+                <p class="text-sm text-gray-700"><strong>Principal:</strong> <span id="contactPrincipalName">Ayesha Noor</span> (Phone: 0302 4763490)</p>
             </div>
         </div>
 
@@ -538,7 +538,10 @@
                 if (response.ok) {
                     const data = await response.json();
 
-                    document.getElementById('dispPrincipalName').innerText = data.principalName || "AYESHA NOOR";
+                    const principalName = data.principalName || "Ayesha Noor";
+                    document.getElementById('dispPrincipalName').innerText = principalName;
+                    document.getElementById('aboutPrincipalName').innerText = principalName;
+                    document.getElementById('contactPrincipalName').innerText = principalName;
                     const statusBadge = document.getElementById('dispSchoolStatus');
                     const schoolStatus = data.status || 'Open';
                     const isSchoolOpen = schoolStatus.toLowerCase() === 'open';
